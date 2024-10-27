@@ -309,30 +309,19 @@ namespace SuperBitV2 {
 
     }
 
-    //% blockId=SuperBitV2_Servo4 block="Servo(360°_rotatable)|num %num|pos %pos|value %value"
+    //% blockId=SuperBitV2_Servo4 block="Servo(360°_rotatable)|num %num|value %value"
     //% weight=96
     //% blockGap=10
-    //% num.min=1 num.max=4 value.min=0 value.max=90
+    //% num.min=1 num.max=4 value.min=0 value.max=360
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=20
-    export function Servo4(num: enServo, pos: enPos, value: number): void {
+    export function Servo4(num: enServo, value: number): void {
 
         // 50hz: 20,000 us
         
-        if (pos == enPos.stop) {
-            let us = (110 * 1800 / 180 + 600); // 0.6 ~ 2.4 error:86->110
-            let pwm = us * 4096 / 20000;
-            setPwm(num, 0, pwm);
-        }
-        else if(pos == enPos.forward){ //0-90 -> 90 - 0
-            let us = ((110-value) * 1800 / 180 + 600); // 0.6 ~ 2.4 error:90->110
-            let pwm = us * 4096 / 20000;
-            setPwm(num, 0, pwm);
-        }
-        else if(pos == enPos.reverse){ //0-90 -> 90 -180  error:90->110
-            let us = ((110+value) * 1800 / 180 + 600); // 0.6 ~ 2.4
-            let pwm = us * 4096 / 20000;
-            setPwm(num, 0, pwm);
-        }
+        
+        let us = (value * 2000 / 360 + 500); // 0.5 ~ 2.5
+        let pwm = us * 4096 / 20000;
+        setPwm(num, 0, pwm);
 
        
 
