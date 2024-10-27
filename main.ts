@@ -280,7 +280,7 @@ namespace SuperBitV2 {
 
     }
 
-    //% blockId=SuperBitV2_Servo3 block="Servo(360°)|num %num|pos %pos|value %value"
+    //% blockId=SuperBitV2_Servo3 block="Servo(360°continuous)|num %num|pos %pos|value %value"
     //% weight=96
     //% blockGap=10
     //% num.min=1 num.max=4 value.min=0 value.max=90
@@ -309,7 +309,7 @@ namespace SuperBitV2 {
 
     }
 
-    //% blockId=SuperBitV2_Servo4 block="Servo(360°_rotatable)|num %num|value %value"
+    //% blockId=SuperBitV2_Servo4 block="Servo(360° angular)|num %num|value %value"
     //% weight=96
     //% blockGap=10
     //% num.min=1 num.max=4 value.min=0 value.max=360
