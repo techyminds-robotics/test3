@@ -290,17 +290,17 @@ namespace SuperBitV2 {
         // 50hz: 20,000 us
         
         if (pos == enPos.stop) {
-            let us = (86 * 1800 / 180 + 600); // 0.6 ~ 2.4 
+            let us = 1500; // old: 0.6 ~ 2.4 (86 * 1800 / 180 + 600)
             let pwm = us * 4096 / 20000;
             setPwm(num, 0, pwm);
         }
         else if(pos == enPos.forward){ //0-90 -> 90 - 0
-            let us = ((90-value) * 1800 / 180 + 600); // 0.6 ~ 2.4 
+            let us = ((90-value) * 2000 / 180 + 500); // 0.5 ~ 2.5 old 0.6 ~ 2.4 ((90-value) * 1800 / 180 + 600)
             let pwm = us * 4096 / 20000;
             setPwm(num, 0, pwm);
         }
         else if(pos == enPos.reverse){ //0-90 -> 90 -180  
-            let us = ((90+value) * 1800 / 180 + 600); // 0.6 ~ 2.4
+            let us = ((90+value) * 2000 / 180 + 500); //0.5 ~ 2.5 old 0.6 ~ 2.4 ((90+value) * 1800 / 180 + 600)
             let pwm = us * 4096 / 20000;
             setPwm(num, 0, pwm);
         }
