@@ -149,7 +149,7 @@ namespace SuperBitV2 {
         prescaleval /= 4096;
         prescaleval /= freq;
         prescaleval -= 1;
-        let prescale = prescaleval; //Math.Floor(prescaleval + 0.5);
+        let prescale = Math.Floor(prescaleval + 0.5); //Math.Floor(prescaleval + 0.5); old :  let prescale = prescaleval
         let oldmode = i2cread(PCA9685_ADD, MODE1);
         let newmode = (oldmode & 0x7F) | 0x10; // sleep
         i2cwrite(PCA9685_ADD, MODE1, newmode); // go to sleep
@@ -315,16 +315,18 @@ namespace SuperBitV2 {
     //% num.min=1 num.max=4 value.min=0 value.max=360
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=20
     export function Servo4(num: enServo, value: number): void {
+        // Constrain the input value to 0-360
+        value = Math.min(Math.max(value, 0), 360); // Map 0-360° to 500-2500 µs
 
         // 50hz: 20,000 us
-        
+        // Calculate pulse width in microseconds
         
         let us = (value * 2000 / 360 + 500); // 0.5 ~ 2.5
-        let pwm = us * 4096 / 20000;
+	// Convert microseconds to PWM duty cycle
+        let pwm = Math.round(us * 4096 / 20000); // Convert 500-2500 µs to 0-4096
+	// Send PWM signal to the specified channel
         setPwm(num, 0, pwm);
-
-       
-
+    
     }
     
    
