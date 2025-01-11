@@ -149,8 +149,8 @@ namespace SuperBitV2 {
         prescaleval /= 4096;
         prescaleval /= freq;
         prescaleval -= 1;
-	let prescale = prescaleval
-        //let prescale = Math.Floor(prescaleval + 0.5); //Math.Floor(prescaleval + 0.5); old :  let prescale = prescaleval
+	//let prescale = prescaleval
+        let prescale = Math.Floor(prescaleval + 0.5); //Math.Floor(prescaleval + 0.5); old :  let prescale = prescaleval
         let oldmode = i2cread(PCA9685_ADD, MODE1);
         let newmode = (oldmode & 0x7F) | 0x10; // sleep
         i2cwrite(PCA9685_ADD, MODE1, newmode); // go to sleep
