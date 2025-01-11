@@ -324,8 +324,8 @@ namespace SuperBitV2 {
         
         let us = (value * 2000 / 360 + 500); // 0.5 ~ 2.5
 	// Convert microseconds to PWM duty cycle
-	let pwm = us * 4096 / 20000;
-        //let pwm = Math.round(us * 4096 / 20000); // Convert 500-2500 µs to 0-4096
+	//let pwm = us * 4096 / 20000;
+        let pwm = Math.round(us * 4096 / 20000); // Convert 500-2500 µs to 0-4096
 	// Send PWM signal to the specified channel
         setPwm(num, 0, pwm);
     
