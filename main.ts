@@ -321,8 +321,8 @@ namespace SuperBitV2 {
 
         // 50hz: 20,000 us
         // Calculate pulse width in microseconds
-        
-        let us = (value * 2000 / 360 + 500); // 0.5 ~ 2.5
+        //let us = (value * 2000 / 360 + 500); // 0.5 ~ 2.5
+	let us = (value * 2000 / 360 * 430 / 360 + 500); // for real 360° commabd should be 430°
 	// Convert microseconds to PWM duty cycle
 	//let pwm = us * 4096 / 20000;
         let pwm = Math.round(us * 4096 / 20000); // Convert 500-2500 µs to 0-4096
