@@ -6,6 +6,7 @@
   "SuperBitV2.Servo2|block": "Servo(270)|num %num|valeur %value",
   "SuperBitV2.Servo3|block": "Servo(360) rotation continue|num %num|sens %pos|valeur %value",
   "SuperBitV2.Servo4|block": "Servo(360)|num %num|valeur %value",
+  "SuperBitV2.Servo5|block": "Servo(360) 5kg mode rotation continue|num %num|sens %pos|valeur %value",
   "SuperBitV2.MotorRun|block": " Moteur|%index|vitesse(-255~255) %speed",
   "SuperBitV2.MotorRunDual|block": " Moteur|%motor1|Vitesse(-255~255) %speed1|%motor2|Vitesse(-255~255) %speed2",
   "SuperBitV2.MotorStopAll|block": "Stop tous moteurs",
