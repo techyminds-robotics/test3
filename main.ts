@@ -355,6 +355,7 @@ namespace SuperBitV2 {
             let pwm = us * 4096 / 20000;
             setPwm(num, 0, pwm);
         }
+    }
 
      
     //% blockId=SuperBitV2_MotorRun block="Motor|%index|speed(-255~255) %speed"
