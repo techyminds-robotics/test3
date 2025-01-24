@@ -342,17 +342,17 @@ namespace SuperBitV2 {
         
         if (pos == enPos.stop) {
             let us = 4000; // 4000 old: 0.6 ~ 2.4 (86 * 1800 / 180 + 600)
-            let pwm = us * 4096 / 20000;
+            let pwm = us * 430 / 360 * 4096 / 20000; // offset 430° to get 360 
             setPwm(num, 0, pwm);
         }
         else if(pos == enPos.forward){ //0-90 -> 90 - 0
             let us = ((100-value) * 2000 / 200 + 3000); // 3000 ~ 4000 old 0.6 ~ 2.4 ((90-value) * 1800 / 180 + 600)
-            let pwm = us * 4096 / 20000;
+            let pwm = us * 430 / 360 * 4096 / 20000; // offset 430° to get 360 
             setPwm(num, 0, pwm);
         }
         else if(pos == enPos.reverse){ //0-90 -> 90 -180  
             let us = ((100+value) * 2000 / 200 + 3000); //4000 ~ 5000 old 0.6 ~ 2.4 ((90+value) * 1800 / 180 + 600)
-            let pwm = us * 4096 / 20000;
+            let pwm = us * 430 / 360 * 4096 / 20000; // offset 430° to get 360 
             setPwm(num, 0, pwm);
         }
     }
