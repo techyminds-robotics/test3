@@ -336,7 +336,7 @@ namespace SuperBitV2 {
     //% blockGap=10
     //% num.min=1 num.max=4 value.min=0 value.max=100
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=20
-    export function Servo3(num: enServo, pos: enPos, value: number): void {
+    export function Servo5(num: enServo, pos: enPos, value: number): void {
 
         // 50hz: 20,000 us
         
