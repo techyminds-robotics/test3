@@ -330,8 +330,33 @@ namespace SuperBitV2 {
         setPwm(num, 0, pwm);
     
     }
-    
-   
+	
+    //% blockId=SuperBitV2_Servo5 block="Servo(5kg continuous mode)|num %num|pos %pos|value %value"
+    //% weight=96
+    //% blockGap=10
+    //% num.min=1 num.max=4 value.min=0 value.max=100
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=20
+    export function Servo3(num: enServo, pos: enPos, value: number): void {
+
+        // 50hz: 20,000 us
+        
+        if (pos == enPos.stop) {
+            let us = 4000; // 4000 old: 0.6 ~ 2.4 (86 * 1800 / 180 + 600)
+            let pwm = us * 4096 / 20000;
+            setPwm(num, 0, pwm);
+        }
+        else if(pos == enPos.forward){ //0-90 -> 90 - 0
+            let us = ((100-value) * 2000 / 200 + 3000); // 3000 ~ 4000 old 0.6 ~ 2.4 ((90-value) * 1800 / 180 + 600)
+            let pwm = us * 4096 / 20000;
+            setPwm(num, 0, pwm);
+        }
+        else if(pos == enPos.reverse){ //0-90 -> 90 -180  
+            let us = ((100+value) * 2000 / 200 + 3000); //4000 ~ 5000 old 0.6 ~ 2.4 ((90+value) * 1800 / 180 + 600)
+            let pwm = us * 4096 / 20000;
+            setPwm(num, 0, pwm);
+        }
+
+     
     //% blockId=SuperBitV2_MotorRun block="Motor|%index|speed(-255~255) %speed"
     //% weight=93
     //% speed.min=-255 speed.max=255
