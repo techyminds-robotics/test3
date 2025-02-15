@@ -12,7 +12,8 @@
         "README.md",
         "main.ts",
         "_locales/zh-cn/SuperBitV2-strings.json",
-        "_locales/zh-tw/SuperBitV2-strings.json"
+        "_locales/zh-tw/SuperBitV2-strings.json",
+        "_locales/fr/SuperBitV2-strings.json"
     ],
     "testFiles": [
         "test.ts"

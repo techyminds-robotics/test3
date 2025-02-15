@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (C): 2010-2019, Shenzhen Yahboom Tech
+Copyright (C): 2010-2019, Shenzhen Yahboom Tech  
 modified from liusen
 load dependency
 "SuperBitV2": "file:../pxt-SuperBitV2"
@@ -149,7 +149,8 @@ namespace SuperBitV2 {
         prescaleval /= 4096;
         prescaleval /= freq;
         prescaleval -= 1;
-        let prescale = prescaleval; //Math.Floor(prescaleval + 0.5);
+	//let prescale = prescaleval
+        let prescale = Math.floor(prescaleval + 0.5); //Math.Floor(prescaleval + 0.5); old :  let prescale = prescaleval 
         let oldmode = i2cread(PCA9685_ADD, MODE1);
         let newmode = (oldmode & 0x7F) | 0x10; // sleep
         i2cwrite(PCA9685_ADD, MODE1, newmode); // go to sleep
@@ -280,7 +281,7 @@ namespace SuperBitV2 {
 
     }
 
-    //% blockId=SuperBitV2_Servo3 block="Servo(360°)|num %num|pos %pos|value %value"
+    //% blockId=SuperBitV2_Servo3 block="Servo(360°continuous)|num %num|pos %pos|value %value"
     //% weight=96
     //% blockGap=10
     //% num.min=1 num.max=4 value.min=0 value.max=90
@@ -290,17 +291,17 @@ namespace SuperBitV2 {
         // 50hz: 20,000 us
         
         if (pos == enPos.stop) {
-            let us = (86 * 1800 / 180 + 600); // 0.6 ~ 2.4 
+            let us = 1500; // old: 0.6 ~ 2.4 (86 * 1800 / 180 + 600)
             let pwm = us * 4096 / 20000;
             setPwm(num, 0, pwm);
         }
         else if(pos == enPos.forward){ //0-90 -> 90 - 0
-            let us = ((90-value) * 1800 / 180 + 600); // 0.6 ~ 2.4 
+            let us = ((90-value) * 2000 / 180 + 500); // 0.5 ~ 2.5 old 0.6 ~ 2.4 ((90-value) * 1800 / 180 + 600)
             let pwm = us * 4096 / 20000;
             setPwm(num, 0, pwm);
         }
         else if(pos == enPos.reverse){ //0-90 -> 90 -180  
-            let us = ((90+value) * 1800 / 180 + 600); // 0.6 ~ 2.4
+            let us = ((90+value) * 2000 / 180 + 500); //0.5 ~ 2.5 old 0.6 ~ 2.4 ((90+value) * 1800 / 180 + 600)
             let pwm = us * 4096 / 20000;
             setPwm(num, 0, pwm);
         }
@@ -309,36 +310,54 @@ namespace SuperBitV2 {
 
     }
 
-    //% blockId=SuperBitV2_Servo4 block="Servo(360°_rotatable)|num %num|pos %pos|value %value"
+    //% blockId=SuperBitV2_Servo4 block="Servo(360° angular)|num %num|value %value"
     //% weight=96
     //% blockGap=10
-    //% num.min=1 num.max=4 value.min=0 value.max=90
+    //% num.min=1 num.max=4 value.min=0 value.max=360
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=20
-    export function Servo4(num: enServo, pos: enPos, value: number): void {
+    export function Servo4(num: enServo, value: number): void {
+        // Constrain the input value to 0-360
+        //value = Math.min(Math.max(value, 0), 360); // Map 0-360° to 500-2500 µs
+
+        // 50hz: 20,000 us
+        // Calculate pulse width in microseconds
+        //let us = (value * 2000 / 360 + 500); // 0.5 ~ 2.5
+	let us = (value * 2000 / 360 * 430 / 360 + 500); // for real 360° commabd should be 430°
+	// Convert microseconds to PWM duty cycle
+	//let pwm = us * 4096 / 20000;
+        let pwm = Math.round(us * 4096 / 20000); // Convert 500-2500 µs to 0-4096
+	// Send PWM signal to the specified channel
+        setPwm(num, 0, pwm);
+    
+    }
+	
+    //% blockId=SuperBitV2_Servo5 block="Servo(5kg continuous mode)|num %num|pos %pos|value %value"
+    //% weight=96
+    //% blockGap=10
+    //% num.min=1 num.max=4 value.min=0 value.max=100
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=20
+    export function Servo5(num: enServo, pos: enPos, value: number): void {
 
         // 50hz: 20,000 us
         
         if (pos == enPos.stop) {
-            let us = (110 * 1800 / 180 + 600); // 0.6 ~ 2.4 error:86->110
-            let pwm = us * 4096 / 20000;
+            let us = 4000; // 4000 old: 0.6 ~ 2.4 (86 * 1800 / 180 + 600)
+            let pwm = us * 430 / 360 * 4096 / 20000; // offset 430° to get 360 
             setPwm(num, 0, pwm);
         }
         else if(pos == enPos.forward){ //0-90 -> 90 - 0
-            let us = ((110-value) * 1800 / 180 + 600); // 0.6 ~ 2.4 error:90->110
-            let pwm = us * 4096 / 20000;
+            let us = ((100-value) * 2000 / 200 + 3000); // 3000 ~ 4000 old 0.6 ~ 2.4 ((90-value) * 1800 / 180 + 600)
+            let pwm = us * 430 / 360 * 4096 / 20000; // offset 430° to get 360 
             setPwm(num, 0, pwm);
         }
-        else if(pos == enPos.reverse){ //0-90 -> 90 -180  error:90->110
-            let us = ((110+value) * 1800 / 180 + 600); // 0.6 ~ 2.4
-            let pwm = us * 4096 / 20000;
+        else if(pos == enPos.reverse){ //0-90 -> 90 -180  
+            let us = ((100+value) * 2000 / 200 + 3000); //4000 ~ 5000 old 0.6 ~ 2.4 ((90+value) * 1800 / 180 + 600)
+            let pwm = us * 430 / 360 * 4096 / 20000; // offset 430° to get 360 
             setPwm(num, 0, pwm);
         }
-
-       
-
     }
-    
-   
+
+     
     //% blockId=SuperBitV2_MotorRun block="Motor|%index|speed(-255~255) %speed"
     //% weight=93
     //% speed.min=-255 speed.max=255
