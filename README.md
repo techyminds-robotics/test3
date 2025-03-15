@@ -1,6 +1,6 @@
-# SuperBit
+# SuperTechy
 
-Extension for Yahboom SuperBitV2
+Extension for TM SuperTechyV2
 
 ## License
 
