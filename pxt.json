@@ -1,7 +1,7 @@
 {
-    "name": "SuperBitV2",
-    "version": "1.0.0",
-    "description": "Extension for YahBoom SuperBitV2",
+    "name": "SuperTechyV2",
+    "version": "2.0.0",
+    "description": "Extension for TM SuperTechyV2",
     "license": "MIT",
     "dependencies": {
         "core": "*",
