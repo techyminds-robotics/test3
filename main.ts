@@ -2,7 +2,7 @@
 Copyright (C): 2010-2019, Shenzhen Yahboom Tech
 modified from liusen
 load dependency
-"SuperBitV2": "file:../pxt-SuperBitV2"
+"SuperBitV2": "file:../pxt-SuperBitV21"
 */
 
 //% color="#ECA40D" weight=30 icon="\uf135"
